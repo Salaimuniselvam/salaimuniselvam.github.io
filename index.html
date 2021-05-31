@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salai Muni Selvam.</title>
+    <link
+      rel="icon"
+      href="sms1.jpg"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+      integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <section id="main" class="center">
+      <div id="particles-js"></div>
+      <div class="user_info">
+        <h1 class="user_name">Salai Muni Selvam.</h1>
+        <!--<p>Front-End Developer & UI/UX</p>>-->
+        
+        <a href="#About" class="btn">About </a>
+      </div>
+      <div class="user_img">
+        <img src="sms.jpg" alt="" />
+      </div>
+    </section>
+
+    <!-- about -->
+    <section class="about center" id="About">
+    <div class="center">
+      <h1 class="about_heading">About</h1>
+      <p>
+         I am a hardworking and ambitious individual with a great passion for the IT industry.
+        I have strong technical skills as well as excellent interpersonal skills, enabling me to 
+        interact with a wide range of People. My Greatest  Passion in life is using my technical know-how 
+        to benefit other people and organisations.     </p>
+    </div>
+        <img src="" alt="">
+    </section>
+    <section class="about center" id="About">
+        <div class="center">
+          <h1 class="about_heading">Career Objective</h1>
+          <p>
+             TO build my career under organisations that helps to grow professional skills
+            and would lead me for a better career with every steps. To be in such a management that
+            allows an opportunity in carrying out business that enhances profit productivity of the 
+            Organization and to self.                
+           </p>
+        </div>
+            <img src="" alt="">
+        </section>
+    <section class="skills center" id="Skills">
+      <p class="skill_head">Skills</p>
+      <div class="skill_box center">
+        <div class="box">
+            <i class="fab fa-java fa-4x"></i>
+            <p>Java</p>
+          </div>
+          <div class="box">
+            <i class="fas fa-database fa-4x"></i>
+            <p>Database</p>
+          </div>
+          <div class="box">
+            <i class="fab fa-microsoft fa-4x"></i>
+            <p>Microsoft Office</p>
+          </div>
+        <div class="box">
+          <i class="fab fa-html5 fa-4x"></i>
+          <p>HTML</p>
+        </div>
+        <div class="box">
+          <i class="fab fa-css3-alt fa-4x"></i>
+          <p>CSS</p>
+        </div>
+        <div class="box">
+          <i class="fab fa-js-square fa-4x"></i>
+          <p>Javascript</p>
+        </div>
+        
+      </div>
+    </section>
+
+   
+    <!-- footer -->
+    <footer class="center">
+      <h1>Stay Connected</h1>
+      <div class="social_media_icons">
+        <a href="https://www.instagram.com/____s____m_____s____/" target="_blank_"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a href="https://github.com/Salaimuniselvam" target="_blank_"
+          ><i class="fab fa-github"></i
+        ></a>
+        <a
+          href="https://www.youtube.com/channel/UC_Jm0ZO9VzxEk2PCH57PM6w"
+          target="_blank_"
+          ><i class="fab fa-youtube"></i
+        ></a>
+        <a
+          href="https://www.linkedin.com/in/salai-muni-selvam-b7aaa71b4"
+          target="_blank_"
+          ><i class="fab fa-linkedin"></i
+        ></a>
+      </div>
+    </footer>
+
+    <!-- Toggle -->
+    <div class="toggle center active" id="toggle">
+      <div class="box center">
+          <a href="#main" class="links center"> 
+            <i class="fas fa-home"></i>
+            <p>Home</p>
+          </a>
+      </div>
+      <div class="box center">
+          <a href="#About" class="links center"> 
+            <i class="fas fa-address-card"></i>
+            <p>About</p>
+          </a>
+        <input type="checkbox" name="" id="btn" />
+          <a href="#Skills" class="links center"> 
+            <i class="fas fa-sliders-h"></i>
+            <p>Skills</p>
+          </a>
+      </div>
+      
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="particles.js"></script>
+    <script>
+      const toggle = document.getElementById("toggle");
+      const btn = document.getElementById("btn");
+      const links = document.querySelectorAll(".links");
+
+      btn.addEventListener("click", (e) => {
+        toggle.classList.toggle("active");
+      });
+      links.forEach((e) => {
+        e.addEventListener("click", () => {
+        toggle.classList.toggle("active");
+        })
+      });
+    </script>
+  </body>
+</html>

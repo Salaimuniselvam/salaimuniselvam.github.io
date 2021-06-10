@@ -1,3 +1,5 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Alegreya:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"); */
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&family=Work+Sans&display=swap');
 * {
   margin: 0;
@@ -8,10 +10,10 @@
   scroll-behavior: smooth;
 }
 :root {
-  --bg: #252a34;
-  --bg-dark: #1d1d1d;
+  --bg: #040507;
+  --bg-dark: #040507;
   --color: #eaeaea;
-  --light-color: #eaeaeaa4;
+  --light-color: #000000a4;
   --primary-color: #08d9d6;
   --secondary-color: #ff2e63;
   --font: 'Crimson Text', serif;
@@ -31,11 +33,11 @@ body {
 #main {
   width: 100%;
   /* height: 50em; */
-    padding: 5em 5em;
+    padding: 5em 0;
   backdrop-filter: blur(1px);
   backdrop-filter: contrast(250px);
   position: relative;
-  justify-content: space-around;
+  justify-content:space-evenly;
   flex-wrap: wrap-reverse;
 }
 #main::before {
@@ -43,9 +45,8 @@ body {
   width: 100%;
   height: 30em;
   position: absolute;
-  right: 25em;
   z-index: -1;
-  background: rgb(19, 19, 19);
+  background: rgb(0, 0, 0);
 }
 #main .user_info {
   margin: 0 30px;
@@ -89,7 +90,7 @@ body {
 /* ---------- about section ---------- */
 .about {
   width: 100%;
-  background: #1a1a1a;
+  background: #000000;
   padding: 6em 0;
 }
 .about div{
@@ -166,9 +167,9 @@ body {
   width: 15em;
   height: 12em;
   background: var(--bg-dark);
-  background: rgba(255, 255, 255, 0.089);
+  background: rgba(0, 0, 0, 0.089);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.068);
+  border: 1px solid rgba(0, 0, 0, 0.068);
   border-bottom: none;
   display: flex;
   justify-content: center;
@@ -208,7 +209,7 @@ body {
   padding: 2em 0;
   position: relative;
   flex-direction: column;
-  background: #1a1a1a;
+  background: #000000;
   overflow-x: hidden;
 }
 .projects::before,
@@ -264,9 +265,9 @@ body {
   height: 12em;
   margin: 0.5em 2em;
   justify-content: space-evenly;
-  background: rgba(255, 255, 255, 0.116);
+  background: rgba(0, 0, 0, 0.116);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.199);
+  border: 1px solid rgba(0, 0, 0, 0.199);
 }
 .projects .container .main_box .icon {
   width: 2em;
@@ -314,7 +315,7 @@ footer{
     width: 100%;
     padding: 3em 0;
     flex-direction: column;
-    background: #1a1a1a;
+    background: #000000;
 }
 footer .social_media_icons{
     margin-top: 1em;
@@ -331,7 +332,7 @@ footer .social_media_icons a i{
 footer .social_media_icons a:hover i{
     font-size: 1.8em;
     padding: 0.2em;
-    color: rgba(54, 54, 54, 0.966);
+    color: rgba(0, 0, 0, 0.966);
 }
 
 
@@ -341,7 +342,7 @@ footer .social_media_icons a:hover i{
   height: 200px;
   backdrop-filter: blur(20px);
   border-radius: 15px;
-  background: rgba(20, 20, 20, 0.178);
+  background: rgba(255, 254, 254, 0.178);
   position: fixed;
   top: 250px;
   right: 10px;
@@ -371,8 +372,8 @@ footer .social_media_icons a:hover i{
   -webkit-appearance: none;
   cursor: pointer;
   border-radius: 10px;
-  background: rgb(31, 31, 31);
-  border: 6px solid rgba(255, 255, 255, 0.459);
+  background: rgb(194, 192, 192);
+  border: 6px solid rgba(209, 209, 209, 0.459);
 }
 .toggle.active .box input{
   position: absolute;

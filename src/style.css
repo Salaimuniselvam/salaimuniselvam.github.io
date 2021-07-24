@@ -332,7 +332,7 @@ footer .social_media_icons a i{
 footer .social_media_icons a:hover i{
     font-size: 1.8em;
     padding: 0.2em;
-    color: rgba(0, 0, 0, 0.966);
+    color: var(--secondary-color);
 }
 
 

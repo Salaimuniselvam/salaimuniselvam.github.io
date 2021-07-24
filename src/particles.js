@@ -1,175 +1,187 @@
-particlesJS('particles-js', {
-	particles: {
-		number: {
-			value: 150,
-			density: {
-				enable: true,
-				value_area: 800
-			}
-		},
-		color: {
-			value: '#fff'
-		},
-		shape: {
-			type: 'circle',
-			stroke: {
-				width: 0,
-				color: '#fff'
-			},
-			polygon: {
-				nb_sides: 5
-			},
-			image: {
-				src: 'https://cdn.freebiesupply.com/logos/large/2x/slack-logo-icon.png',
-				width: 100,
-				height: 100
-			}
-		},
+var MAX_PARTICLES = 1000,
+	RADIUS = 100,
+	MAX_LINES = 5,
+	MAX_LIFE_SPAN = 600,
+	MIN_DENSITY = 15,
+	OFFSET_DENSITY = 15,
+	_context,
+	_mouseX,
+	_mouseY,
+	_particles,
+	_canvasWidth,
+	_canvasHalfWidth,
+	_canvasHeight,
+	_canvasHalfHeight;
+
+init();
+
+function init() {
+
+	_particles = [];
+	_context = c.getContext('2d');
+
+	window.addEventListener('resize', onResize);
+	window.addEventListener('mousemove', onMouseMove);
+
+	onResize();
+
+	createInitialParticles();
+
+	redraw();
+}
+
+function createInitialParticles() {
+
+	var x;
+
+	for (x = 50; x < _canvasWidth - 50; x += 25) {
+
+		_particles.push(new Particle(x - _canvasHalfWidth,  -75 + (Math.random() * 100)));
+	}
+}
+
+function onMouseMove(e) {
+
+	_mouseX = e.pageX;
+	_mouseY = e.pageY;
+}
+
+function onResize() {
+
+	_canvasWidth = c.offsetWidth;
+	_canvasHalfWidth = Math.round(_canvasWidth / 2);
+	_canvasHeight = c.offsetHeight,
+	_canvasHalfHeight = Math.round(_canvasHeight / 2);
+
+	c.width = _canvasWidth;
+	c.height = _canvasHeight;
+}
+
+function redraw() {
+
+	var copyParticles = _particles.slice(),
+		particle,
+		i;
+
+	if (_particles.length < MAX_PARTICLES && _mouseX && _mouseY) {
+
+		particle = new Particle(_mouseX - _canvasHalfWidth, _mouseY - _canvasHalfHeight);
 		
-		opacity: {
-			value: 0.2,
-			random: false,
-			anim: {
-				enable: false,
-				speed: 1,
-				opacity_min: 0.1,
-				sync: false
-			}
-		},
-		size: {
-			value: 4,
-			random: true,
-			anim: {
-				enable: false,
-				speed: 10,
-				size_min: 10,
-				sync: false
-			}
-		},
-		line_linked: {
-			enable: false,
-			distance: 150,
-			color: '#808080',
-			opacity: 0.4,
-			width: 1
-		},
-		move: {
-			enable: true,
-			speed: 5,
-			direction: 'none',
-			random: false,
-			straight: false,
-			out_mode: 'out',
-			bounce: false,
-			attract: {
-				enable: false,
-				rotateX: 600,
-				rotateY: 1200
-			}
-		}
-	},
-	interactivity: {
-		detect_on: 'window',
-		events: {
-			onhover: {
-				enable: false,
-				mode: 'repulse'
-			},
-			onclick: {
-				enable: false,
-				mode: 'push'
-			}
-		},
-		modes: {
-			'repulse' : {
-				distance: 70,
-				duration: 0.4
-			},
-			'push' : {
-				particles_nb: 4
-			}
-		}
-	},
-	retina_detect: true
-});
-const allElements = document.querySelectorAll('.animated-text');
+		_particles.push(particle);
+		_mouseX = false;
+		_mouseY = false;
+	}
 
-// It checks if there is at least one element
-if (allElements.length > 0) {
-	//It runs the script for each found element
-	allElements.forEach((element) => {
-		const txtElement = element,
-			wordsList = txtElement.getAttribute('data-words'),
-			words = wordsList.split(', '); // It makes an array of words from data attribute
+	_context.clearRect(0, 0, _canvasWidth, _canvasHeight);
 
-		let wordsCount = 0;
+	for (i = 0; i < copyParticles.length; i++) {
 
-		entry();
+		particle = copyParticles[i];
+		particle.update();
+	}
 
-		// Initial function
-		function entry() {
-			if (wordsCount < words.length) {
-				// It runs the code for each word
-				let word = words[wordsCount],
-					txtArr = word.split(''), // It makes an array of letters in the word
-					count = 0;
+	drawLines();
 
-				txtElement.textContent = ''; // It removes the previous text from the element
+	requestAnimationFrame(redraw);
+}
 
-				// For each letter in the array
-				txtArr.forEach((letter) => {
-					// It replaces the empty space for the "non-break-space" HTML...
-					// ... This is needed to separate the words properly
-					let _letter = letter === ' ' ? '&nbsp;' : letter;
+function drawLines() {
 
-					// It wraps every letter with a "span" and puts all they back to the element
-					txtElement.innerHTML += `<span>${_letter}</span>`;
-				});
+	var particleA,
+		particleB,
+		distance,
+		opacity,
+		lines,
+		i,
+		j;
 
-				let spans = txtElement.childNodes;
+	_context.beginPath();
 
-				// It sets the interval between each letter showing
-				const letterInterval = setInterval(activeLetter, 70);
+	for (i = 0; i < _particles.length; i++) {
 
-				function activeLetter() {
-					spans[count].classList.add('active');
-					count++;
+		lines = 0;
+		particleA = _particles[i];
 
-					if (count === spans.length) {
-						clearInterval(letterInterval);
+		for (j = i + 1; j < _particles.length; j++) {
 
-						// It waits 4 seconds to start erasing the word
-						setTimeout(() => {
-							eraseText();
-						}, 600);
-					}
+			particleB = _particles[j];
+			distance = getDistance(particleA, particleB);
+
+			if (distance < RADIUS) {
+				
+				lines++;
+				
+				if (lines <= MAX_LINES) {
+
+					opacity = 0.5 * Math.min((1 - distance / RADIUS), particleA.getOpacity(), particleB.getOpacity());
+					_context.beginPath();
+					_context.moveTo(particleA.getX() + _canvasHalfWidth, particleA.getY() + _canvasHalfHeight);
+					_context.lineTo(particleB.getX() + _canvasHalfWidth, particleB.getY() + _canvasHalfHeight);
+					_context.strokeStyle = 'rgba(255,255,255,' + opacity + ')';
+					_context.stroke();
 				}
-
-				function eraseText() {
-					// It sets the interval between each letter hiding
-					let removeInterval = setInterval(removeLetter, 40);
-					count--;
-
-					function removeLetter() {
-						spans[count].classList.remove('active');
-						count--;
-
-						if (count === -1) {
-							clearInterval(removeInterval);
-							wordsCount++;
-
-							// After removing the last letter, call the initial function again
-							entry();
-						}
-					}
-				}
-			} else {
-				// If the code reaches the last word
-				// It resets the words counter...
-				wordsCount = 0;
-				// ...and calls the initial function again.
-				entry();
 			}
 		}
-	});
+	}
+}
+
+function Particle(originX, originY) {
+
+	var _this = this,
+		_direction = -1 + Math.round(Math.random()) * 2,
+		_angle = Math.random() * 10,
+		_posX = originX,
+		_posY = originY,
+		_density = MIN_DENSITY + Math.random() * OFFSET_DENSITY,
+		_lifeSpan = 0,
+		_opacity = 1;
+
+	function update() {
+
+		_lifeSpan++;
+
+		if (_lifeSpan % 3 === 0) {
+
+			_opacity = 1 - _lifeSpan / MAX_LIFE_SPAN;
+
+			_angle += 0.001 * _direction;
+			_posY += (Math.cos(_angle + _density) + 1) * 0.75;
+			_posX += Math.sin(_angle) * 0.75;
+
+			if (_lifeSpan >= MAX_LIFE_SPAN) {
+
+				destroy();
+			}
+		}
+	}
+
+	function destroy() {
+
+		var particle,
+				i;
+
+		for (i = 0; i < _particles.length; i++) {
+
+			particle = _particles[i];
+
+			if (particle === _this) {
+
+				_particles.splice(i, 1);
+			}
+		}
+	}
+
+	this.getOpacity = function() { return _opacity; };
+	this.getX = function() { return _posX; };
+	this.getY = function() { return _posY; };
+	
+	this.update = update;
+}
+
+function getDistance(particle1, particle2) {
+
+	var deltaX = particle1.getX() - particle2.getX(),
+		deltaY = particle1.getY() - particle2.getY();
+
+	return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 }

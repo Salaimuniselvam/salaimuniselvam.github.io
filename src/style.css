@@ -81,7 +81,7 @@ body {
 #main .user_info .btn:hover {
   background: var(--secondary-color);
 }
-#particles-js {
+#canvas {
   width: 100%;
   position: absolute;
   z-index: -1;

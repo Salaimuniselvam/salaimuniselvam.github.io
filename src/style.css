@@ -342,7 +342,7 @@ footer .social_media_icons a:hover i{
   height: 200px;
   backdrop-filter: blur(20px);
   border-radius: 15px;
-  background: red;
+  background: rgba(20, 20, 20, 0.178);
   position: fixed;
   top: 250px;
   right: 10px;

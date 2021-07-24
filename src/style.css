@@ -81,11 +81,14 @@ body {
 #main .user_info .btn:hover {
   background: var(--secondary-color);
 }
-#particles-js #particles {
+#particles-js  {
   width: 100%;
   position: absolute;
   z-index: -1;
 }
+
+
+
 
 /* ---------- about section ---------- */
 .about {
@@ -316,7 +319,11 @@ footer{
     padding: 3em 0;
     flex-direction: column;
     background: #000000;
+    position: relative;
+    backdrop-filter: blur(1px);
+    backdrop-filter: contrast(50px);
 }
+
 footer .social_media_icons{
     margin-top: 1em;
 }
@@ -333,6 +340,12 @@ footer .social_media_icons a:hover i{
     font-size: 1.8em;
     padding: 0.2em;
     color: var(--secondary-color);
+}
+#particles {
+  position: absolute;
+  width: 100%;
+  height: 70%;  
+  z-index: -1;
 }
 
 
